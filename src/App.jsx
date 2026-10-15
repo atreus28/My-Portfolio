@@ -687,7 +687,7 @@ function SimplePortfolio({ theme, onThemeChange, activeSection, onSelectProject,
           <div className="simple-hero-copy">
             <p className="eyebrow"><span className="availability-dot" /> COMPUTER SECURITY · IT STUDENT</p>
             <h1 id="simple-hero-title">Curious about technology <span>Focused on security</span></h1>
-            <p className="simple-hero-description">I&apos;m an Information Technology student at PHINMA University of Pangasinan, with hands-on experience in networking and IoT development. I&apos;m looking for opportunities in cybersecurity, data, or networking.</p>
+            <p className="simple-hero-description">I&apos;m an Information Technology student at PHINMA University of Pangasinan with hands-on experience in networking and IoT development. As a developer and vibe coder, I leverage AI-driven tools alongside core tech skills to build fast, adapt continuously, and solve complex problems. I&apos;m actively seeking opportunities in cybersecurity, data analytics, or networking.</p>
             <div className="simple-hero-actions">
               <a className="button button-primary" href="#projects">View my work <ArrowDown size={17} /></a>
               <a className="button button-outline" href="#contact">Contact me <ArrowUpRight size={16} /></a>
@@ -715,7 +715,7 @@ function SimplePortfolio({ theme, onThemeChange, activeSection, onSelectProject,
           <div className="simple-about-copy">
             <p className="eyebrow">PROFILE</p>
             <h2 id="simple-about-title">I&apos;m {profile.name}<br /><span>{profile.field} student</span></h2>
-            <p>As a Bachelor of Science in Information Technology student at PHINMA University of Pangasinan with hands-on experience in networking and IoT development, I am actively seeking opportunities in cybersecurity, data roles, or network engineering. Eager to continuously grow and refine my skills, I am highly motivated to learn and adapt to emerging technologies across network management, data analytics, and security.</p>
+            <p>As a BSIT student at PHINMA University of Pangasinan with hands-on experience in networking and IoT, I am actively seeking opportunities in cybersecurity, data analytics, or network engineering. As a forward-thinking <strong>vibe coder</strong>, I leverage modern AI development tools alongside core tech skills to build, adapt, and learn rapidly across network management, data processing, and security practices.</p>
             <a className="text-link" href="#education">View my education <ArrowDown size={16} /></a>
           </div>
         </section>
@@ -995,7 +995,7 @@ function App() {
               <div className="hero-copy">
                 <p className="eyebrow"><span className="availability-dot" /> COMPUTER SECURITY · IT STUDENT</p>
                 <h1 id="hero-title">Building knowledge in <span>security & technology</span></h1>
-                <p className="hero-description">I&apos;m an Information Technology student with hands-on experience in networking and IoT development, looking for opportunities in cybersecurity, data, and networking.</p>
+                <p className="hero-description">I&apos;m an Information Technology student at PHINMA University of Pangasinan with hands-on experience in networking and IoT development. As a developer and vibe coder, I leverage AI-driven tools alongside core tech skills to build fast, adapt continuously, and solve complex problems. I&apos;m actively seeking opportunities in cybersecurity, data analytics, or networking.</p>
                 <a className="button button-primary" href="#contact">Get in touch <ArrowUpRight size={18} /></a>
               </div>
               <div className="hero-note">
@@ -1011,7 +1011,7 @@ function App() {
               <div className="dashboard-about-copy">
                 <p className="eyebrow">PROFILE</p>
                 <h2 id="about-title">{profile.name}</h2>
-                <p>As a Bachelor of Science in Information Technology student at PHINMA University of Pangasinan with hands-on experience in networking and IoT development, I am actively seeking opportunities in cybersecurity, data roles, or network engineering. Eager to continuously grow and refine my skills, I am highly motivated to learn and adapt to emerging technologies across network management, data analytics, and security.</p>
+                <p>As a BSIT student at PHINMA University of Pangasinan with hands-on experience in networking and IoT, I am actively seeking opportunities in cybersecurity, data analytics, or network engineering. As a forward-thinking <strong>vibe coder</strong>, I leverage modern AI development tools alongside core tech skills to build, adapt, and learn rapidly across network management, data processing, and security practices.</p>
                 <a className="text-link" href="#contact">Contact me <ArrowUpRight size={16} /></a>
               </div>
             </section>
