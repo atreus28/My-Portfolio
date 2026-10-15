@@ -24,6 +24,8 @@ import {
   MapPinLine,
   Moon,
   PaperPlaneTilt,
+  Pause,
+  Play,
   Sun,
   User,
   X,
@@ -63,6 +65,8 @@ const projects = [
     category: '1ST SEMESTER · 1ST YEAR',
     description: 'A frontend-only e-commerce storefront for browsing PC components.',
     overview: 'A first-year project focused on presenting PC components in an e-commerce storefront. The experience is frontend-only, with a browsable catalog as its central feature.',
+    role: 'Frontend Developer',
+    technologies: ['Python', 'Tkinter'],
     repository: 'https://github.com/atreus28/Hardware-Bazaar',
     screenshot: '/projects/hardware-bazaar.png',
     Icon: PaperPlaneTilt,
@@ -75,6 +79,8 @@ const projects = [
     category: '2ND SEMESTER · 1ST YEAR',
     description: 'A budgeting web app for tracking monthly expenses and visualizing spending goals.',
     overview: 'A web app concept for keeping monthly spending organized. Users can track expenses and visualize their spending goals in one place.',
+    role: 'Frontend Developer',
+    technologies: ['HTML', 'CSS'],
     repository: 'https://github.com/atreus28/Budget-Planner',
     screenshot: '/projects/budget-planner.png',
     Icon: Command,
@@ -87,6 +93,8 @@ const projects = [
     category: '1ST SEMESTER · 2ND YEAR',
     description: 'A mobile app for browsing movies and showtimes, selecting seats, and securely booking movie tickets.',
     overview: 'CineSphere is a mobile app designed for convenient movie ticket booking, allowing users to browse movies, view showtimes, select seats, and make secure payments. The app streamlines the booking process, delivering real-time updates and enhancing the movie-going experience.',
+    role: 'UI/UX Designer',
+    technologies: ['Figma', 'Dart', 'HTML', 'Supabase', 'Swift', 'C++'],
     repository: 'https://github.com/atreus28/CineSphere',
     screenshots: [
       { src: '/projects/cinesphere/01-splash.png', alt: 'CineSphere welcome screen with the app logo.' },
@@ -110,6 +118,8 @@ const projects = [
     category: '2ND SEMESTER · 2ND YEAR',
     description: 'A cozy coffee shop concept serving quality brews in a welcoming atmosphere.',
     overview: 'A coffee shop project centered around a cozy atmosphere and quality brews, bringing the shop concept and its customer experience to life.',
+    role: 'UI/UX Designer & Frontend Developer',
+    technologies: ['Kotlin', 'PHP', 'MySQL', 'Figma'],
     repository: 'https://github.com/atreus28/Don-Mac-Ordering-App',
     screenshots: [
       { src: '/projects/don-machiattos/01-overview.png', alt: 'Don Machiattos customer ordering app and administrator dashboard displayed side by side.' },
@@ -128,6 +138,8 @@ const projects = [
     category: '1ST SEMESTER · 3RD YEAR',
     description: 'A campus reporting web platform for tracking facility issues from submission through resolution.',
     overview: 'A campus web platform for reporting and managing facility issues. It is designed to keep submitted reports trackable through the resolution process.',
+    role: 'UI/UX Designer & Frontend Developer',
+    technologies: ['MERN Stack', 'Figma'],
     repository: 'https://github.com/atreus28/Upang-Facility-Report-Management-System',
     screenshots: [
       { src: '/projects/upang-facility/01-landing.png', alt: 'UPANG Facility Management home page with report issue and track reports actions.' },
@@ -143,6 +155,8 @@ const projects = [
     category: 'CAPSTONE PROJECT · PRESENT',
     description: 'A real-time smart inhaler monitoring system designed to support medication adherence for asthma and COPD patients.',
     overview: 'A capstone project exploring real-time inhaler monitoring and medication adherence for people with asthma and COPD. The system is intended to provide monitoring that can support more consistent treatment adherence.',
+    role: 'IoT Developer — hardware-to-application integration',
+    technologies: ['Flutter', 'Firebase'],
     screenshots: [
       { src: '/projects/iot-smart-inhaler/01-mistify-splash.png', alt: 'Mistify smart inhaler app launch screen with its logo.' },
       { src: '/projects/iot-smart-inhaler/02-dashboard.png', alt: 'Mistify dashboard showing patient overview metrics, treatment actions, and navigation.' },
@@ -488,18 +502,47 @@ function ProjectCard({ project, onSelect }) {
         <div className="project-category">{category}</div>
         <h3>{title}</h3>
         <p>{description}</p>
+        <ProjectMetadata project={project} compact />
         <span className="text-link">View project overview <ArrowUpRight size={16} /></span>
       </div>
     </article>
   )
 }
 
+function ProjectMetadata({ project, compact = false }) {
+  return (
+    <div className={`project-metadata${compact ? ' project-metadata-compact' : ''}`}>
+      <div className="project-metadata-role">
+        <span>Role</span>
+        <p>{project.role}</p>
+      </div>
+      <div className="project-metadata-technologies">
+        <span>Technologies</span>
+        <ul>
+          {project.technologies.map((technology) => <li key={technology}>{technology}</li>)}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
 function ProjectSlideshow({ screenshots, title }) {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(() => !window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   const activeScreenshot = screenshots[activeIndex]
   const moveSlide = (direction) => {
     setActiveIndex((index) => (index + direction + screenshots.length) % screenshots.length)
   }
+
+  useEffect(() => {
+    if (!isPlaying || screenshots.length < 2) return undefined
+
+    const intervalId = window.setInterval(() => {
+      setActiveIndex((index) => (index + 1) % screenshots.length)
+    }, 5000)
+
+    return () => window.clearInterval(intervalId)
+  }, [isPlaying, screenshots.length])
 
   return (
     <div className="project-slideshow" aria-label={`${title} screenshots`}>
@@ -523,7 +566,7 @@ function ProjectSlideshow({ screenshots, title }) {
         </button>
       </div>
       <div className="project-slideshow-footer">
-        <span aria-live="polite">{activeIndex + 1} / {screenshots.length} · {activeScreenshot.alt}</span>
+        <span aria-live={isPlaying ? 'off' : 'polite'}>{activeIndex + 1} / {screenshots.length} · {activeScreenshot.alt}</span>
         <div className="project-slide-dots" aria-label="Choose screenshot">
           {screenshots.map((screenshot, index) => (
             <button
@@ -536,6 +579,16 @@ function ProjectSlideshow({ screenshots, title }) {
             />
           ))}
         </div>
+        <button
+          type="button"
+          className="project-slideshow-toggle"
+          onClick={() => setIsPlaying((playing) => !playing)}
+          aria-label={isPlaying ? 'Pause automatic slideshow' : 'Play automatic slideshow'}
+          aria-pressed={isPlaying}
+          title={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+        >
+          {isPlaying ? <Pause size={15} weight="fill" /> : <Play size={15} weight="fill" />}
+        </button>
       </div>
     </div>
   )
@@ -592,6 +645,7 @@ function ProjectOverviewDialog({ project, onClose }) {
           <h3>Project overview</h3>
           <p>{project.overview}</p>
         </div>
+        <ProjectMetadata project={project} />
         <div className="project-dialog-actions">
           {project.repository && (
             <a
